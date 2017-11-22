@@ -1,7 +1,11 @@
+'use strict';
+/* eslint no-console: "off" */
+
+require('dotenv').load();
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const {DATABASE_URL} = require('./config');
+const { DATABASE_URL } = require('./config');
 
 function dbConnect(url = DATABASE_URL) {
     return mongoose.connect(url, {useMongoClient: true}).catch(err => {
