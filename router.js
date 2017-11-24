@@ -52,6 +52,21 @@ router.delete('/messages/:id', (req, res) => {
 
 // ***** TASKS
 
+router.get('/tasks/:user', (req, res) => {
+  console.log('getting tasks', req.params.user);
+  Task
+  .find({assigned: req.params.user})
+  .sort([['timestamp', 'ascending']])
+  .then( tasks => {
+    let newArr = tasks.map( task => task.apiRepr());
+    res.json(newArr);
+  })
+  .catch( err => {
+    console.error(err);
+    res.status(500).json({error: 'Search failed'});
+  });
+});
+
 router.get('/tasks', (req, res) => {
   Task
   .find()
