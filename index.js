@@ -8,6 +8,7 @@ const { router } = require('./router');
 // const {dbConnect} = require('./db-knex');
 
 const app = express();
+console.log('client origin ', CLIENT_ORIGIN);
 
 app.use(
     morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
