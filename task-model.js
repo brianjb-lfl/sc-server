@@ -50,6 +50,8 @@ TaskSchema.methods.apiRepr = function () {
     task: this.task,
     contact: this.contact,
     addr: this.fullAddress,
+    address: this.address,
+    csz: this.csz,
     assigned: this.assigned,
     complete: this.complete,
     notes: this.notes,
