@@ -88,7 +88,7 @@ router.put('/tasks/:id', jsonParser, (req, res) => {
     return res.status(422).json('missing field');
   }
   return Task.findByIdAndUpdate(req.params.id, {$set:req.body})
-    .then( () => res.status(201).end())
+    .then( () => res.status(201).json({message: 'ok'}))
     .catch( err => {
       res.status(500).json({message: 'Internal server error'});
     });
