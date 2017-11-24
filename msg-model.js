@@ -13,6 +13,10 @@ const MessageSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  taskid: {
+    type: String,
+    default: null,
+  },
   timestamp: {
     type: Date,
     default: Date.now
@@ -24,6 +28,7 @@ MessageSchema.methods.apiRepr = function () {
     id: this._id,
     msg: this.msg,
     sender: this.sender,
+    taskid: this.taskid,
     timestamp: this.timestamp
   };
 };

@@ -10,6 +10,20 @@ const { Task } = require('./task-model');
 
 // ***** MESSAGES
 
+router.get('/messages/:id', (req, res) => {
+  Message
+  .find({taskid: req.params.id})
+  .sort([['timestamp', 'descending']])
+  .then( messages => {
+    let newArr = messages.map( message => message.apiRepr());
+    res.json(newArr);
+  })
+  .catch( err => {
+    console.error(err);
+    res.status(500).json({error: 'Search failed'});
+  });
+});
+
 router.get('/messages', (req, res) => {
   Message
   .find()
