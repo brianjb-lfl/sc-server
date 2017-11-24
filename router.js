@@ -81,12 +81,23 @@ router.post('/tasks', jsonParser, (req, res) => {
     });
 });
 
+router.put('/tasks/:id', jsonParser, (req, res) => {
+  const reqFs = ['task', 'contact', 'address', 'csz'];
+  const missingF = reqFs.find( field => !(field in req.body));
+  if(missingF) {
+    return res.status(422).json('missing field');
+  }
+  return Task.findByIdAndUpdate(req.params.id, {$set:req.body})
+    .then( () => res.status(201).end())
+    .catch( err => {
+      res.status(500).json({message: 'Internal server error'});
+    });
+});
+
 router.delete('/tasks/:id', (req, res) => {
   Task
   .findByIdAndRemove(req.params.id)
-  .then( () => {
-    res.status(204).end();
-  })
+  .then( () => res.status(204).end())
   .catch( err => {
     res.status(500).json({message: 'Internal server error'});
   });
