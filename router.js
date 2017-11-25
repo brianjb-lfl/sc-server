@@ -44,8 +44,8 @@ router.post('/messages', jsonParser, (req, res) => {
   if(missingF) {
     return res.status(422).json('missing field');
   }
-  let { msg, sender } = req.body;
-  return Message.create({msg, sender})
+  let { msg, sender, taskid } = req.body;
+  return Message.create({msg, sender, taskid})
     .then( message => res.status(201).json(message.apiRepr()))
     .catch( err => {
       res.status(500).json({message: 'Internal server error'});
@@ -101,6 +101,7 @@ router.post('/tasks', jsonParser, (req, res) => {
   if(missingF) {
     return res.status(422).json('missing field');
   }
+  console.log(req.body);
   const assigned = 'assigned' in req.body ? req.body.assigned : null;
   let { task, contact, address, csz } = req.body;
   return Task.create({task, contact, address, csz, assigned})
